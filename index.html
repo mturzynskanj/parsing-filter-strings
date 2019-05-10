@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    tet
+  </body>
+  <script>
+    // "name": "[{\"key\": \"Mariaturzynska\"},{\"age\": 49}, [\"OR\",{\"name\": \"Maria\"}]]",
+    // "name2" :"[{\"user\": \"mturzyns\"}]",
+
+    const processData = result => {
+      let numberOfFilters = Object.keys(result).slice(0, 5).length;
+      let allFilterStrings = Object.values(result).slice(0, 5);
+      debugger;
+      let parsedFilters = null;
+      if (numberOfFilters > 1) {
+        parsedFilters = allFilterStrings.reduce(
+          (acc, filter) => {
+            let filterConditions = filter.replace("],", "];").split(';')
+            console.log('filter Condition ',filterConditions)
+            if (filterConditions.length > 1) {
+
+              parsedConditions = filterConditions.reduce((acc,condition)=>{
+                let splitAgain = condition.replace("],", "];").split(';')
+                  if(splitAgain.length> 1){
+                    debugger
+                     splitAgain.reduce((acc,cond)=>{
+                        return acc.concat(JSON.parse(cond))
+                     },['AND'])
+                  } else {
+                    return acc.concat(JSON.parse(condition))
+                  }
+                  
+                  return acc.concat(JSON.parse(condition))
+              },['AND'])
+              console.log('parsed condition', parsedConditions)
+            } else {
+              let parsed = null;
+
+              if (filter.includes("OR")) {
+                return acc.concat([JSON.parse(filter)]);
+              }
+
+              if (filter.includes("AND")) {
+                return acc.concat([JSON.parse(filter)]);
+              }
+
+              return acc.concat(JSON.parse(filter));
+            }
+          },
+          ["OR"]
+        );
+      } else {
+        // we only have one filter selected
+
+        parsedFilters = allFilterStrings.reduce(
+          (acc, filter) => {
+            let parsed = null;
+
+            if (filter.includes("OR")) {
+              acc = [];
+              parsed = parsed = JSON.parse(filter);
+              return acc.concat(parsed);
+            }
+
+            if (filter.includes("AND")) {
+            }
+
+            return acc.concat([JSON.parse(filter)]);
+          },
+          ["AND"]
+        );
+      }
+
+      console.log("parsed  all filters", parsedFilters);
+
+      // let arrayFilters = Object.keys(result).reduce(
+      //   (acc, key) => {
+      //       let newName=""
+      //       let parse = ""
+      //       if(/\[/.test(result[key][0])){
+      //         console.log('YESSSS', result[key])
+      //         parse = JSON.parse(result[key])
+      //       } else {
+      //         parse = JSON.parse('['+result[key]+']')
+      //         console.log("NOOOO", result[key])
+      //       }
+      //       // if(key === 'name'){
+      //       //    newName = "["+result[key]+"]"
+      //       //    console.log('new name ', newName)
+      //       //    parse = JSON.parse(newName)
+      //       // } else {
+      //       //     console.log('result', result[key])
+      //       //     parse = JSON.parse(result[key])
+      //       // }
+
+      //     return acc.concat(parse);
+      //   },
+      //   ["AND"]
+      // );
+
+      ///console.log("arrayOf filters ", arrayFilters);
+    };
+
+    fetch("http://localhost:8000/data/data.json")
+      .then(request => request.json())
+      .then(result => processData(result));
+  </script>
+</html>

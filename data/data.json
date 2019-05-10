@@ -1,0 +1,8 @@
+{
+
+   "name3": "[\"OR\",{ \"key\": \"SecurityState\", \"value\": \"CA\", \"comparator\": \"equal\" }, { \"key\": \"SecurityState\", \"value\": \"CT\", \"comparator\": \"equal\" }]",
+   "name4": "{ \"key\": \"Adjustable\", \"value\": \"Y\", \"comparator\": \"equal\" }",
+   "name5": "{ \"key\": \"BankQualified\", \"value\": \"N\", \"comparator\": \"equal\" }", 
+   "name6": "[\"AND\",{ \"key\": \"QSCB\", \"value\": \"Y\", \"comparator\": \"equal\" }, { \"key\": \"Adjustable\", \"value\": \"Y\", \"comparator\": \"equal\" }]",
+   "name7": "[\"AND\",{ \"key\": \"Coupon\", \"value\": \"[3,4.5]\", \"comparator\": \"in-between\" }], [\"OR\",{ \"key\": \"SecurityState\", \"value\": \"CA\", \"comparator\": \"equal\" }, { \"key\": \"SecurityState\", \"value\": \"CO\", \"comparator\": \"equal\" }, { \"key\": \"SecurityState\", \"value\": \"CT\", \"comparator\": \"equal\" }], [\"AND\",{ \"key\": \"MaturityDate\", \"value\": \"['05/09/2019','10/08/2022']\", \"comparator\": \"in-between-dates\" }]"
+}
